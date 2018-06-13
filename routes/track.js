@@ -3,7 +3,7 @@ var router = express.Router();
 const logger = require('../config/winston')
 
 // POST a tracking metric
-router.post('/', function(req, res, next) {
+router.post('/visits', function(req, res, next) {
   logger.info(req.body);
   res.status(201);
 });
