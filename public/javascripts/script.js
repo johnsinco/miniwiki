@@ -11,9 +11,9 @@
 //   $.post( 'track', { event: "article_loaded" } );
 // });
 //
-// $('#informative').click(function() {
-//   $.post( 'track', { event: "informative_clicked" } );
-// });
+$.ajaxSetup({
+  timeout: 30000
+});
 
 // ahoy tracking
 ahoy.configure({
@@ -30,4 +30,7 @@ ahoy.configure({
 
 ahoy.trackAll();
 
-console.log(ahoy);
+// track informative clicks
+// $('#informative').click(function() {
+//   $.post( 'track', { event: "informative_clicked" } );
+// });
