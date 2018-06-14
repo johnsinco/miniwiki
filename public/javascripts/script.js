@@ -15,7 +15,7 @@ $.ajaxSetup({
   timeout: 30000
 });
 
-// ahoy tracking
+// ahoy tracking  - https://github.com/ankane/ahoy.js
 ahoy.configure({
   urlPrefix: "",
   visitsUrl: "/track/visits",
@@ -29,6 +29,11 @@ ahoy.configure({
 });
 
 ahoy.trackAll();
+
+$(window).on("beforeunload", function(e) {
+  ahoy.track("leave_page", {"page": window.location.href});
+
+})
 
 // track informative clicks
 // $('#informative').click(function() {

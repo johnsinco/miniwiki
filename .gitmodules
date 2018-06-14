@@ -1,0 +1,3 @@
+[submodule "logster"]
+	path = logster
+	url = git@github.com:etsy/logster.git
