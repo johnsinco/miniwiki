@@ -19,3 +19,15 @@ describe('/GET Latest_plane_crash', () => {
     });
   });
 });
+
+// test the instrumentation endpoint
+describe('/POST track/events', () => {
+  it('it should return a CREATED to signal success', (done) => {
+    chai.request(server)
+    .post('/track/events', {"event": "test"})
+    .end((err, res) => {
+      res.should.have.status(201);
+      done();
+    });
+  });
+});
