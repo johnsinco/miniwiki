@@ -1,21 +1,23 @@
 const appRoot = require('app-root-path');
 
 // winston logging config
-const { createLogger, format, transports } = require('winston')
-const { colorize, combine, timestamp, printf } = format
-
-const logFormat = printf(info => {
-  return `${info.timestamp} ${info.level}: ${JSON.stringify(info.message)}`
-})
+const { createLogger, transports } = require('winston')
 
 var options = {
-  file: {
+  app: {
     level: 'info',
+    json: false,
     filename: `${appRoot}/logs/app.log`,
     handleExceptions: true,
-    prettyPrint: true,
+    maxsize: 5242880, // 5MB
+    maxFiles: 2,
+    colorize: false,
+  },
+  event: {
+    level: 'info',
+    filename: `${appRoot}/logs/events.log`,
+    handleExceptions: true,
     timestamp: true,
-    json: false,
     maxsize: 5242880, // 5MB
     maxFiles: 2,
     colorize: false,
@@ -30,15 +32,18 @@ var options = {
 };
 
 const logger = createLogger({
-  format: combine(
-    timestamp(),
-    logFormat
-  ),
   transports: [
-    new transports.File(options.file),
+    new transports.File(options.app),
     new transports.Console(options.console)
   ],
   exitOnError: false,
+})
+
+// make separate logger for web events
+const eventLogger = createLogger({
+  transports: [
+    new transports.File(options.event),
+  ]
 })
 
 // setup morgan to write to this log
@@ -48,4 +53,5 @@ logger.stream = {
   },
 };
 
-module.exports = logger;
+exports.logger = logger;
+exports.eventLogger = eventLogger;

@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 
 // logging
-var winston = require('./config/winston');
+var winston = require('./config/winston').logger;
 var morgan = require('morgan');
 
 var indexRouter = require('./routes/index');
