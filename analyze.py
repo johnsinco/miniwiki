@@ -1,5 +1,6 @@
 import pandas as pd
 
-data = pd.read_table('logs/app.log', sep=" ", header=None, usecols=[0,1,2,3,4,5,6])
-
-print(data)
+# read log file into DF
+with open('logs/app.log') as logfile:
+    frame = pd.read_json(logfile, lines=True)
+    print(frame.to_string())
