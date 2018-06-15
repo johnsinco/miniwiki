@@ -3,7 +3,7 @@ const appRoot = require('app-root-path');
 // winston logging config
 const { createLogger, transports } = require('winston')
 
-var options = {
+let options = {
   app: {
     level: 'info',
     json: false,
